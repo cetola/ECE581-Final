@@ -22,7 +22,7 @@ module multiply_reg #(
 );
 
 // sync_reg
-always_ff@(posedge fastClk) begin
+always_ff@(posedge slowClk) begin
     if(reset) begin
         dataOut <= '0;
     end

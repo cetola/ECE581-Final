@@ -21,7 +21,7 @@ module shift_reg #(
     output logic [DATA_WIDTH-1:0] dataOut
 );
 
-logic shiftReg[DATA_WIDTH-1:0];
+logic [DATA_WIDTH-1:0]shiftReg;
 logic slowClk;
 logic syncClk;
 
@@ -36,7 +36,5 @@ always_ff@(posedge fastClk) begin
         shiftReg <= {shiftReg[DATA_WIDTH-2:0], dataIn};
     end
 end
-
-assign dataOut = dataIn;
 
 endmodule

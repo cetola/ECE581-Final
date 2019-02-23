@@ -38,19 +38,19 @@ div_cnt c1 (   .fastClk(fastClk),
 sync_reg #(DATA_WIDTH) synch1 ( .dataIn(shiftOut),
                                 .fastClk(fastClk),
                                 .enable(enable),
-                                .reset(reset)
+                                .reset(reset),
                                 .dataOut(syncOut));
 
 //"Decode" reg, contains combinational logic
 decode_reg #(DATA_WIDTH) d1 (   .dataIn(syncOut),
                                 .slowClk(slowClk),
-                                .reset(reset)
+                                .reset(reset),
                                 .dataOut(decodeOut));
 
 //"Multiply" register. Contains no logic.
 multiply_reg #(DATA_WIDTH) m1 ( .dataIn(decodeOut),
                                 .slowClk(slowClk),
-                                .reset(reset)
+                                .reset(reset),
                                 .dataOut(multiplyOut));
 
 endmodule

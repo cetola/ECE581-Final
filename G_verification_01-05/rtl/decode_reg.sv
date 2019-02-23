@@ -23,7 +23,7 @@ module decode_reg #(
 logic [DATA_WIDTH-1:0] data;
 
 // sync_reg
-always_ff@(posedge fastClk) begin
+always_ff@(posedge slowClk) begin
     if(reset) begin
         dataOut <= '0;
     end

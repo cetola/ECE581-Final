@@ -9,7 +9,7 @@ module sync_counter
 
     logic clkAB, clkCD;
     logic dao;
-    logic dco;
+    logic dbo;
 
     always_comb begin
         clkAB = cntrl? clkB : clkA;
