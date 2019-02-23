@@ -20,7 +20,7 @@ module top #(
     output logic [DATA_WIDTH-1:0] dataOut
 );
 
-logic [DATA_WIDTH-1:0] shiftOut, syncOut, decodeIn, decodeOut, multiplyIn;
+logic [DATA_WIDTH-1:0] shiftOut, syncOut, decodeOut, multiplyOut;
 logic slowClk, clkOut, enable;
 
 assign enable = clkOut & slowClk;
@@ -40,5 +40,11 @@ sync_reg #(DATA_WIDTH) synch1 ( .dataIn(shiftOut),
                                 .enable(enable),
                                 .reset(reset)
                                 .dataOut(syncOut));
+
+//"Decode" reg, contains combinational logic
+decode_reg #(DATA_WIDTH) d1 (   .dataIn(syncOut),
+                                .slowClk(slowClk),
+                                .reset(reset)
+                                .dataOut(decodeOut));
 
 endmodule
