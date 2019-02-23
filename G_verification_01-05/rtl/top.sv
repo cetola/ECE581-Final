@@ -47,4 +47,10 @@ decode_reg #(DATA_WIDTH) d1 (   .dataIn(syncOut),
                                 .reset(reset)
                                 .dataOut(decodeOut));
 
+//"Multiply" register. Contains no logic.
+multiply_reg #(DATA_WIDTH) m1 ( .dataIn(decodeOut),
+                                .slowClk(slowClk),
+                                .reset(reset)
+                                .dataOut(multiplyOut));
+
 endmodule
