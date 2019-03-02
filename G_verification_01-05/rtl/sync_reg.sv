@@ -11,19 +11,18 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module synch_reg #(
+module sync_reg #(
 	parameter DATA_WIDTH = 4
 ) (
-    input logic dataIn,
     input logic fastClk,
     input logic enable,
     input logic reset,
+    input logic [DATA_WIDTH-1:0] dataIn,
     output logic [DATA_WIDTH-1:0] dataOut
 );
 
 logic [DATA_WIDTH-1:0] data;
 
-// sync_reg
 always_ff@(posedge fastClk) begin
     if(reset) begin
         dataOut <= '0;
@@ -34,9 +33,9 @@ always_ff@(posedge fastClk) begin
 end
 
 // combination logic
-// AND all the bits of "dataIn"
+// OR "dataIn" with itself
 always_comb begin
-    data = &dataIn;
+    data = dataIn | dataIn;
 end
 
 endmodule

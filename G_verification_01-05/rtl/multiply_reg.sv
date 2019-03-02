@@ -15,9 +15,9 @@
 module multiply_reg #(
 	parameter DATA_WIDTH = 4
 ) (
-    input logic dataIn,
     input logic slowClk,
     input logic reset,
+    input logic [DATA_WIDTH-1:0] dataIn,
     output logic [DATA_WIDTH-1:0] dataOut
 );
 

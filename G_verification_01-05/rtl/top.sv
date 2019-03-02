@@ -24,15 +24,16 @@ logic [DATA_WIDTH-1:0] shiftOut, syncOut, decodeOut, multiplyOut;
 logic slowClk, clkOut, enable;
 
 assign enable = clkOut & slowClk;
+assign dataOut = multiplyOut;
 
 shift_reg #(DATA_WIDTH) sr1 (   .dataIn(dataIn),
                                 .fastClk(fastClk),
                                 .reset(reset),
                                 .dataOut(shiftOut));
 
-div_cnt c1 (   .fastClk(fastClk),
-                    .slowClk(slowClk),
-                    .clkOut(clkOut));
+div_cnt c1 (.fastClk(fastClk),
+            .slowClk(slowClk),
+            .clkOut(clkOut));
 
 //Synchronize reg, contains combinational logic
 sync_reg #(DATA_WIDTH) synch1 ( .dataIn(shiftOut),

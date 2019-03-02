@@ -17,14 +17,13 @@ module div_cnt (
     output logic clkOut
 );
 
-logic [1:0] count;
+logic [1:0] c = 2'b00;
 
-assign slowClk = count[1];
-assign clkOut = count[0];
+assign slowClk = c[1];
+assign clkOut = c[0];
 
-// shift_reg
 always_ff@(posedge fastClk) begin
-    count <= count + 1;
+    c <= c + 1'b1;
 end
 
 endmodule
