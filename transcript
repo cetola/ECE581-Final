@@ -1,0 +1,58 @@
+# //  Questa Sim
+# //  Version 10.3 linux Jan  6 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# vsim -novopt tb_sync_counter_fe 
+# Start time: 21:20:58 on Mar 05,2019
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /u/sanika/ECE_581_FinalProject/sync_counter_without_overrides/work/QUESTA_SIM_FE_BE/front_end/work.tb_sync_counter_fe
+# Loading sv_std.std
+# Loading work.tb_sync_counter_fe
+# Refreshing /u/sanika/ECE_581_FinalProject/sync_counter_without_overrides/work/QUESTA_SIM_FE_BE/front_end/work.sync_counter
+# Loading work.sync_counter
+add wave -position insertpoint  \
+sim:/tb_sync_counter_fe/rst \
+sim:/tb_sync_counter_fe/cntrlAB \
+sim:/tb_sync_counter_fe/cntrlCD \
+sim:/tb_sync_counter_fe/di \
+sim:/tb_sync_counter_fe/clkA \
+sim:/tb_sync_counter_fe/clkB \
+sim:/tb_sync_counter_fe/clkC \
+sim:/tb_sync_counter_fe/clkD \
+sim:/tb_sync_counter_fe/dco \
+sim:/tb_sync_counter_fe/clkAB \
+sim:/tb_sync_counter_fe/clkCD \
+sim:/tb_sync_counter_fe/Result_pass \
+sim:/tb_sync_counter_fe/f_dco \
+sim:/tb_sync_counter_fe/f_dao
+run -all
+#                   30PASS
+#                   60PASS
+#                   90PASS
+#                  120PASS
+#                  150PASS
+#                  180PASS
+#                  210PASS
+#                  240PASS
+#                  270PASS
+#                  300PASS
+#                  330PASS
+#                  360PASS
+#                  390PASS
+#                  420PASS
+#                  450PASS
+#                  480PASS
+# ** Note: $stop    : tb_sync_counter_fe.sv(82)
+#    Time: 490 ns  Iteration: 1  Instance: /tb_sync_counter_fe
+# Break in Module tb_sync_counter_fe at tb_sync_counter_fe.sv line 82
+quiot
+# invalid command name "quiot"
+quit
+# End time: 21:22:33 on Mar 05,2019
+# Errors: 4, Warnings: 1
