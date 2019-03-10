@@ -1,0 +1,108 @@
+
+module shift_reg_DATA_WIDTH4 ( dataIn, fastClk, reset, dataOut );
+  output [3:0] dataOut;
+  input dataIn, fastClk, reset;
+  wire   n5;
+
+  DFFSSRX1_RVT \shiftReg_reg[3]  ( .D(dataOut[2]), .SETB(1'b1), .RSTB(n5), 
+        .CLK(fastClk), .Q(dataOut[3]) );
+  DFFSSRX1_RVT \shiftReg_reg[0]  ( .D(dataIn), .SETB(1'b1), .RSTB(n5), .CLK(
+        fastClk), .Q(dataOut[0]) );
+  DFFSSRX1_RVT \shiftReg_reg[1]  ( .D(dataOut[0]), .SETB(1'b1), .RSTB(n5), 
+        .CLK(fastClk), .Q(dataOut[1]) );
+  DFFSSRX1_RVT \shiftReg_reg[2]  ( .D(dataOut[1]), .SETB(1'b1), .RSTB(n5), 
+        .CLK(fastClk), .Q(dataOut[2]) );
+  INVX1_LVT U7 ( .A(reset), .Y(n5) );
+endmodule
+
+
+module div_cnt ( fastClk, reset, slowClk, clkOut );
+  input fastClk, reset;
+  output slowClk, clkOut;
+  wire   N5, N6, n1;
+
+  DFFX1_LVT \c_reg[0]  ( .D(N5), .CLK(fastClk), .Q(clkOut) );
+  DFFX1_LVT \c_reg[1]  ( .D(N6), .CLK(fastClk), .Q(slowClk) );
+  OA22X1_LVT U3 ( .A1(n1), .A2(N5), .A3(slowClk), .A4(clkOut), .Y(N6) );
+  NOR2X0_LVT U4 ( .A1(reset), .A2(slowClk), .Y(n1) );
+  NOR2X0_LVT U5 ( .A1(clkOut), .A2(reset), .Y(N5) );
+endmodule
+
+
+module sync_reg_DATA_WIDTH4 ( fastClk, enable, reset, dataIn, dataOut );
+  input [3:0] dataIn;
+  output [3:0] dataOut;
+  input fastClk, enable, reset;
+  wire   n1, n2, n3, n4, n5, n6, n7, n8;
+
+  DFFX1_LVT \dataOut_reg[3]  ( .D(n8), .CLK(fastClk), .Q(dataOut[3]) );
+  DFFX1_LVT \dataOut_reg[2]  ( .D(n7), .CLK(fastClk), .Q(dataOut[2]) );
+  DFFX1_LVT \dataOut_reg[1]  ( .D(n6), .CLK(fastClk), .Q(dataOut[1]) );
+  DFFX1_LVT \dataOut_reg[0]  ( .D(n5), .CLK(fastClk), .Q(dataOut[0]) );
+  AO22X1_LVT U4 ( .A1(dataOut[0]), .A2(n3), .A3(dataIn[0]), .A4(n1), .Y(n5) );
+  AO22X1_LVT U5 ( .A1(dataOut[1]), .A2(n3), .A3(dataIn[1]), .A4(n1), .Y(n6) );
+  AO22X1_LVT U6 ( .A1(dataOut[2]), .A2(n3), .A3(dataIn[2]), .A4(n1), .Y(n7) );
+  AO22X1_LVT U7 ( .A1(dataOut[3]), .A2(n3), .A3(dataIn[3]), .A4(n1), .Y(n8) );
+  AND2X1_LVT U8 ( .A1(n2), .A2(n4), .Y(n3) );
+  NAND2X0_LVT U9 ( .A1(enable), .A2(n2), .Y(n4) );
+  INVX1_LVT U2 ( .A(n4), .Y(n1) );
+  INVX1_LVT U3 ( .A(reset), .Y(n2) );
+endmodule
+
+
+module decode_reg_DATA_WIDTH4 ( slowClk, reset, dataIn, dataOut );
+  input [3:0] dataIn;
+  output [3:0] dataOut;
+  input slowClk, reset;
+  wire   n4;
+
+  INVX0_LVT U6 ( .A(reset), .Y(n4) );
+  DFFSSRX1_RVT \dataOut_reg[3]  ( .D(1'b0), .SETB(dataIn[3]), .RSTB(n4), .CLK(
+        slowClk), .Q(dataOut[3]) );
+  DFFSSRX1_RVT \dataOut_reg[2]  ( .D(1'b0), .SETB(dataIn[2]), .RSTB(n4), .CLK(
+        slowClk), .Q(dataOut[2]) );
+  DFFSSRX1_RVT \dataOut_reg[1]  ( .D(1'b0), .SETB(dataIn[1]), .RSTB(n4), .CLK(
+        slowClk), .Q(dataOut[1]) );
+  DFFSSRX1_RVT \dataOut_reg[0]  ( .D(1'b0), .SETB(dataIn[0]), .RSTB(n4), .CLK(
+        slowClk), .Q(dataOut[0]) );
+endmodule
+
+
+module multiply_reg_DATA_WIDTH4 ( slowClk, reset, dataIn, dataOut );
+  input [3:0] dataIn;
+  output [3:0] dataOut;
+  input slowClk, reset;
+  wire   n5;
+
+  DFFSSRX1_RVT \dataOut_reg[3]  ( .D(dataIn[3]), .SETB(1'b1), .RSTB(n5), .CLK(
+        slowClk), .Q(dataOut[3]) );
+  DFFSSRX1_RVT \dataOut_reg[2]  ( .D(dataIn[2]), .SETB(1'b1), .RSTB(n5), .CLK(
+        slowClk), .Q(dataOut[2]) );
+  DFFSSRX1_RVT \dataOut_reg[1]  ( .D(dataIn[1]), .SETB(1'b1), .RSTB(n5), .CLK(
+        slowClk), .Q(dataOut[1]) );
+  DFFSSRX1_RVT \dataOut_reg[0]  ( .D(dataIn[0]), .SETB(1'b1), .RSTB(n5), .CLK(
+        slowClk), .Q(dataOut[0]) );
+  INVX1_LVT U7 ( .A(reset), .Y(n5) );
+endmodule
+
+
+module top ( dataIn, fastClk, reset, control, dataOut );
+  output [3:0] dataOut;
+  input dataIn, fastClk, reset, control;
+  wire   clkOut, slowClk, enable;
+  wire   [3:0] shiftOut;
+  wire   [3:0] syncOut;
+  wire   [3:0] decodeOut;
+
+  shift_reg_DATA_WIDTH4 sr1 ( .dataIn(dataIn), .fastClk(fastClk), .reset(reset), .dataOut(shiftOut) );
+  div_cnt c1 ( .fastClk(fastClk), .reset(reset), .slowClk(slowClk), .clkOut(
+        clkOut) );
+  sync_reg_DATA_WIDTH4 synch1 ( .fastClk(fastClk), .enable(enable), .reset(
+        reset), .dataIn(shiftOut), .dataOut(syncOut) );
+  decode_reg_DATA_WIDTH4 d1 ( .slowClk(slowClk), .reset(reset), .dataIn(
+        syncOut), .dataOut(decodeOut) );
+  multiply_reg_DATA_WIDTH4 m1 ( .slowClk(slowClk), .reset(reset), .dataIn(
+        decodeOut), .dataOut(dataOut) );
+  AND2X1_LVT U1 ( .A1(slowClk), .A2(clkOut), .Y(enable) );
+endmodule
+
