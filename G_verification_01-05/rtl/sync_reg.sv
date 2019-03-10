@@ -33,9 +33,9 @@ always_ff@(posedge fastClk) begin
 end
 
 // combination logic
-// OR "dataIn" with itself
+// Invert all the bits of "dataIn"
 always_comb begin
-    data = dataIn | dataIn;
+    data = ~dataIn;
 end
 
 endmodule
