@@ -28,7 +28,6 @@ set link_library "* saed32hvt_ss0p75v125c.db saed32lvt_ss0p75v125c.db saed32rvt_
 # Analyzing the current design
 analyze -format sverilog ../rtl/sync_reg.sv
 analyze -format sverilog ../rtl/shift_reg.sv
-#analyze -format sverilog ../rtl/sync_reg.sv
 analyze -format sverilog ../rtl/div_cnt.sv
 analyze -format sverilog ../rtl/decode_reg.sv
 analyze -format sverilog ../rtl/multiply_reg.sv
@@ -115,5 +114,5 @@ echo report_constraint command (PWR-6, PWR-414, PWR-415 Warnings are ok)
 report_constraint -all_violators -verbose -sig 3 > ../reports/constraint.rpt
 report_power > ../reports/power.rpt
 write -hier -format verilog -output top.vg
-#write_sdf ../reports/top.sdf 
+write_sdf ../reports/top.sdf
 

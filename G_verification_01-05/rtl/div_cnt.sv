@@ -13,17 +13,21 @@
 
 module div_cnt (
     input logic fastClk,
+    input logic reset,
     output logic slowClk,
     output logic clkOut
 );
 
-logic [1:0] c = 2'b00;
+logic [1:0] c;
 
 assign slowClk = c[1];
 assign clkOut = c[0];
 
 always_ff@(posedge fastClk) begin
-    c <= c + 1'b1;
+    if(reset)
+        c <= '0;
+    else
+        c <= c + 1'b1;
 end
 
 endmodule

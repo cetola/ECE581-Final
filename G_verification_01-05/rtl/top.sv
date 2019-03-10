@@ -32,6 +32,7 @@ shift_reg #(DATA_WIDTH) sr1 (   .dataIn(dataIn),
                                 .dataOut(shiftOut));
 
 div_cnt c1 (.fastClk(fastClk),
+            .reset(reset),
             .slowClk(slowClk),
             .clkOut(clkOut));
 
