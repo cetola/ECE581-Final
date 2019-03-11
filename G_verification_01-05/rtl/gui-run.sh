@@ -5,4 +5,4 @@ vlog *.sv
 echo Run complete. Check for errors.
 echo Running vsim
 echo
-vsim -c toptb -do "run -all;exit"
+vsim toptb

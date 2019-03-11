@@ -1,0 +1,117 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : L-2016.03-SP3
+// Date      : Sun Mar 10 18:22:31 2019
+/////////////////////////////////////////////////////////////
+
+
+module shift_reg_DATA_WIDTH4 ( dataIn, fastClk, reset, dataOut );
+  output [3:0] dataOut;
+  input dataIn, fastClk, reset;
+  wire   n5;
+
+  DFFSSRX1_RVT \shiftReg_reg[3]  ( .D(dataOut[2]), .SETB(1'b1), .RSTB(n5), 
+        .CLK(fastClk), .Q(dataOut[3]) );
+  DFFSSRX1_RVT \shiftReg_reg[0]  ( .D(dataIn), .SETB(1'b1), .RSTB(n5), .CLK(
+        fastClk), .Q(dataOut[0]) );
+  DFFSSRX1_RVT \shiftReg_reg[1]  ( .D(dataOut[0]), .SETB(1'b1), .RSTB(n5), 
+        .CLK(fastClk), .Q(dataOut[1]) );
+  DFFSSRX1_RVT \shiftReg_reg[2]  ( .D(dataOut[1]), .SETB(1'b1), .RSTB(n5), 
+        .CLK(fastClk), .Q(dataOut[2]) );
+  INVX0_RVT U7 ( .A(reset), .Y(n5) );
+endmodule
+
+
+module div_cnt ( fastClk, reset, slowClk, clkOut );
+  input fastClk, reset;
+  output slowClk, clkOut;
+  wire   N5, N6, n1;
+
+  DFFX1_LVT \c_reg[0]  ( .D(N5), .CLK(fastClk), .Q(clkOut) );
+  DFFX1_LVT \c_reg[1]  ( .D(N6), .CLK(fastClk), .Q(slowClk) );
+  OA22X1_LVT U3 ( .A1(n1), .A2(N5), .A3(slowClk), .A4(clkOut), .Y(N6) );
+  NOR2X0_LVT U4 ( .A1(reset), .A2(slowClk), .Y(n1) );
+  NOR2X0_LVT U5 ( .A1(clkOut), .A2(reset), .Y(N5) );
+endmodule
+
+
+module sync_reg_DATA_WIDTH4 ( fastClk, enable, reset, dataIn, dataOut );
+  input [3:0] dataIn;
+  output [3:0] dataOut;
+  input fastClk, enable, reset;
+  wire   n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12;
+
+  DFFX1_LVT \dataOut_reg[3]  ( .D(n12), .CLK(fastClk), .Q(dataOut[3]) );
+  DFFX1_LVT \dataOut_reg[2]  ( .D(n11), .CLK(fastClk), .Q(dataOut[2]) );
+  DFFX1_LVT \dataOut_reg[1]  ( .D(n10), .CLK(fastClk), .Q(dataOut[1]) );
+  DFFX1_LVT \dataOut_reg[0]  ( .D(n9), .CLK(fastClk), .Q(dataOut[0]) );
+  AO22X1_LVT U9 ( .A1(dataOut[0]), .A2(n7), .A3(n1), .A4(n6), .Y(n9) );
+  AO22X1_LVT U10 ( .A1(dataOut[1]), .A2(n7), .A3(n1), .A4(n5), .Y(n10) );
+  AO22X1_LVT U11 ( .A1(dataOut[2]), .A2(n7), .A3(n1), .A4(n4), .Y(n11) );
+  AO22X1_LVT U12 ( .A1(dataOut[3]), .A2(n7), .A3(n1), .A4(n3), .Y(n12) );
+  AND2X1_LVT U13 ( .A1(n2), .A2(n8), .Y(n7) );
+  NAND2X0_LVT U14 ( .A1(enable), .A2(n2), .Y(n8) );
+  INVX1_LVT U3 ( .A(n8), .Y(n1) );
+  INVX0_RVT U4 ( .A(reset), .Y(n2) );
+  INVX1_LVT U5 ( .A(dataIn[0]), .Y(n6) );
+  INVX1_LVT U6 ( .A(dataIn[1]), .Y(n5) );
+  INVX1_LVT U7 ( .A(dataIn[2]), .Y(n4) );
+  INVX1_LVT U8 ( .A(dataIn[3]), .Y(n3) );
+endmodule
+
+
+module decode_reg_DATA_WIDTH4 ( slowClk, reset, dataIn, dataOut );
+  input [3:0] dataIn;
+  output [3:0] dataOut;
+  input slowClk, reset;
+  wire   N3, N4, N5, N6;
+
+  DFFX1_LVT \dataOut_reg[3]  ( .D(N6), .CLK(slowClk), .Q(dataOut[3]) );
+  DFFX1_LVT \dataOut_reg[2]  ( .D(N5), .CLK(slowClk), .Q(dataOut[2]) );
+  DFFX1_LVT \dataOut_reg[1]  ( .D(N4), .CLK(slowClk), .Q(dataOut[1]) );
+  DFFX1_LVT \dataOut_reg[0]  ( .D(N3), .CLK(slowClk), .Q(dataOut[0]) );
+  NOR2X0_LVT U3 ( .A1(reset), .A2(dataIn[3]), .Y(N6) );
+  NOR2X0_LVT U4 ( .A1(reset), .A2(dataIn[2]), .Y(N5) );
+  NOR2X0_LVT U5 ( .A1(reset), .A2(dataIn[1]), .Y(N4) );
+  NOR2X0_LVT U6 ( .A1(reset), .A2(dataIn[0]), .Y(N3) );
+endmodule
+
+
+module multiply_reg_DATA_WIDTH4 ( slowClk, reset, dataIn, dataOut );
+  input [3:0] dataIn;
+  output [3:0] dataOut;
+  input slowClk, reset;
+  wire   n5;
+
+  DFFSSRX1_RVT \dataOut_reg[3]  ( .D(dataIn[3]), .SETB(1'b1), .RSTB(n5), .CLK(
+        slowClk), .Q(dataOut[3]) );
+  DFFSSRX1_RVT \dataOut_reg[2]  ( .D(dataIn[2]), .SETB(1'b1), .RSTB(n5), .CLK(
+        slowClk), .Q(dataOut[2]) );
+  DFFSSRX1_RVT \dataOut_reg[1]  ( .D(dataIn[1]), .SETB(1'b1), .RSTB(n5), .CLK(
+        slowClk), .Q(dataOut[1]) );
+  DFFSSRX1_RVT \dataOut_reg[0]  ( .D(dataIn[0]), .SETB(1'b1), .RSTB(n5), .CLK(
+        slowClk), .Q(dataOut[0]) );
+  INVX0_RVT U7 ( .A(reset), .Y(n5) );
+endmodule
+
+
+module top ( dataIn, fastClk, reset, control, dataOut );
+  output [3:0] dataOut;
+  input dataIn, fastClk, reset, control;
+  wire   clkOut, slowClk, enable;
+  wire   [3:0] shiftOut;
+  wire   [3:0] syncOut;
+  wire   [3:0] decodeOut;
+
+  shift_reg_DATA_WIDTH4 sr1 ( .dataIn(dataIn), .fastClk(fastClk), .reset(reset), .dataOut(shiftOut) );
+  div_cnt c1 ( .fastClk(fastClk), .reset(reset), .slowClk(slowClk), .clkOut(
+        clkOut) );
+  sync_reg_DATA_WIDTH4 synch1 ( .fastClk(fastClk), .enable(enable), .reset(
+        reset), .dataIn(shiftOut), .dataOut(syncOut) );
+  decode_reg_DATA_WIDTH4 d1 ( .slowClk(slowClk), .reset(reset), .dataIn(
+        syncOut), .dataOut(decodeOut) );
+  multiply_reg_DATA_WIDTH4 m1 ( .slowClk(slowClk), .reset(reset), .dataIn(
+        decodeOut), .dataOut(dataOut) );
+  AND2X1_LVT U1 ( .A1(slowClk), .A2(clkOut), .Y(enable) );
+endmodule
+
