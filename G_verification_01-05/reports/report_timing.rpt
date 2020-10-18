@@ -1,0 +1,83 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : top
+Version: L-2016.03-SP3
+Date   : Sun Mar 10 18:22:28 2019
+****************************************
+
+Operating Conditions: ss0p75v125c   Library: saed32hvt_ss0p75v125c
+Wire Load Model Mode: enclosed
+
+  Startpoint: m1/dataOut_reg[0]
+              (rising edge-triggered flip-flop clocked by slowClk)
+  Endpoint: dataOut[0] (output port clocked by slowClk)
+  Path Group: OUTPUTS
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  top                ForQA                 saed32lvt_ss0p75v125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock slowClk (rise edge)                               0.00       0.00
+  clock network delay (ideal)                             0.40       0.40
+  m1/dataOut_reg[0]/CLK (DFFSSRX1_RVT)                    0.00       0.40 r
+  m1/dataOut_reg[0]/Q (DFFSSRX1_RVT)                      0.33       0.73 r
+  m1/dataOut[0] (multiply_reg_DATA_WIDTH4)                0.00       0.73 r
+  dataOut[0] (out)                                        0.00       0.73 r
+  data arrival time                                                  0.73
+
+  clock slowClk (rise edge)                               4.00       4.00
+  clock network delay (ideal)                             0.40       4.40
+  clock uncertainty                                      -0.17       4.23
+  output external delay                                  -0.66       3.57
+  data required time                                                 3.57
+  --------------------------------------------------------------------------
+  data required time                                                 3.57
+  data arrival time                                                 -0.73
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.84
+
+
+  Startpoint: d1/dataOut_reg[0]
+              (rising edge-triggered flip-flop clocked by slowClk)
+  Endpoint: m1/dataOut_reg[0]
+            (rising edge-triggered flip-flop clocked by slowClk)
+  Path Group: slowClk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  top                ForQA                 saed32lvt_ss0p75v125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock slowClk (rise edge)                               0.00       0.00
+  clock network delay (ideal)                             0.40       0.40
+  d1/dataOut_reg[0]/CLK (DFFX1_LVT)                       0.00       0.40 r
+  d1/dataOut_reg[0]/Q (DFFX1_LVT)                         0.18       0.58 r
+  d1/dataOut[0] (decode_reg_DATA_WIDTH4)                  0.00       0.58 r
+  m1/dataIn[0] (multiply_reg_DATA_WIDTH4)                 0.00       0.58 r
+  m1/dataOut_reg[0]/D (DFFSSRX1_RVT)                      0.00       0.58 r
+  data arrival time                                                  0.58
+
+  clock slowClk (rise edge)                               4.00       4.00
+  clock network delay (ideal)                             0.40       4.40
+  clock uncertainty                                      -0.17       4.23
+  m1/dataOut_reg[0]/CLK (DFFSSRX1_RVT)                    0.00       4.23 r
+  library setup time                                     -0.26       3.97
+  data required time                                                 3.97
+  --------------------------------------------------------------------------
+  data required time                                                 3.97
+  data arrival time                                                 -0.58
+  --------------------------------------------------------------------------
+  slack (MET)                                                        3.38
+
+
+1

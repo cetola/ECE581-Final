@@ -1,0 +1,65 @@
+Loading db file '/pkgs/synopsys/2016/libs/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db'
+Loading db file '/pkgs/synopsys/2016/libs/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : top
+Version: L-2016.03-SP3
+Date   : Sun Mar 10 18:22:31 2019
+****************************************
+
+
+Library(s) Used:
+
+    saed32lvt_ss0p75v125c (File: /pkgs/synopsys/2016/libs/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db)
+    saed32rvt_ss0p75v125c (File: /pkgs/synopsys/2016/libs/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db)
+
+
+Operating Conditions: ss0p75v125c   Library: saed32hvt_ss0p75v125c
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+top                    ForQA             saed32lvt_ss0p75v125c
+shift_reg_DATA_WIDTH4  ForQA             saed32lvt_ss0p75v125c
+div_cnt                ForQA             saed32lvt_ss0p75v125c
+sync_reg_DATA_WIDTH4   ForQA             saed32lvt_ss0p75v125c
+decode_reg_DATA_WIDTH4 ForQA             saed32lvt_ss0p75v125c
+multiply_reg_DATA_WIDTH4
+                       ForQA             saed32lvt_ss0p75v125c
+
+
+Global Operating Voltage = 0.75 
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+  Cell Internal Power  =  43.6279 uW   (91%)
+  Net Switching Power  =   4.2710 uW    (9%)
+                         ---------
+Total Dynamic Power    =  47.8989 uW  (100%)
+
+Cell Leakage Power     =  19.1831 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      1.1056            0.9676        1.7235e+06            3.7967  (   5.66%)
+register          40.3473            2.4120        1.5079e+07           57.8387  (  86.22%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational      2.1750            0.8913        2.3802e+06            5.4466  (   8.12%)
+--------------------------------------------------------------------------------------------------
+Total             43.6279 uW         4.2710 uW     1.9183e+07 pW        67.0820 uW
+1
